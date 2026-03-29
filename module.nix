@@ -60,6 +60,13 @@
                   secrets, as they will not be exposed in the Nix store.
                 '';
               };
+
+              scheduleTime = mkOption {
+                type = types.int;
+                default = 6;
+                example = 24;
+                description = "How often to run, in hours";
+              };
             };
           };
       in
@@ -116,6 +123,11 @@
                 preStart = lib.optionalString (
                   instance.settings != null || instance.settingsFile != null
                 ) generateConfigScript;
+
+                environment = {
+                  CONFIG_DIR = statePath;
+                  SCHEDULE_TIME = builtins.toString instance.scheduleTime;
+                };
 
                 serviceConfig = {
                   Type = "simple";
