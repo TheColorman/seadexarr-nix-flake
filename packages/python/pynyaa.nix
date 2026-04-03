@@ -12,12 +12,12 @@
 
 buildPythonPackage rec {
   pname = "pynyaa";
-  version = "2.0.0";
+  version = "3.0.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-6AAQr3uzc5y9FUPR+R7PJLgtOUY8lVGb3lZVH+pxn4g=";
+    hash = "sha256-xQFCv2GrWH2LoMd1q1A03xArNYYMKVoxxOUIjZBlVfc=";
   };
 
   build-system = [ hatchling ];

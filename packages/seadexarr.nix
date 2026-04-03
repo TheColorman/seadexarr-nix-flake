@@ -2,33 +2,35 @@
   python3Packages,
   lib,
   extraPackages,
-  fetchPypi,
   installShellFiles,
   stdenv,
+  fetchFromGitHub,
 }:
 
-python3Packages.buildPythonApplication rec {
+python3Packages.buildPythonApplication {
   pname = "seadexarr";
   version = "0.9.0";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-FZj0LULc3BbrlqMvOPdkNGXxDPHd/2T37OsYvnZeAdI=";
+  src = fetchFromGitHub {
+    owner = "bbtufty";
+    repo = "seadexarr";
+    rev = "f64a270dace9bceac8b2105a3ecaf3c8b2193a26";
+    hash = "sha256-6DXordytNy6XEzyFT9bRFlEuHCRa+/yF2ZBDkEU5Wmc=";
   };
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail "setuptools == 80.9.0" "setuptools" \
-      --replace-fail "setuptools_scm == 9.2.0" "setuptools_scm" \
+      --replace-fail "setuptools_scm == 9.2.2" "setuptools_scm" \
       --replace-fail "wheel == 0.45.1" "wheel" \
       --replace-fail "arrapi == 1.4.14" "arrapi" \
-      --replace-fail "beautifulsoup4 == 4.13.5" "beautifulsoup4" \
-      --replace-fail "colorlog == 6.9.0" "colorlog" \
-      --replace-fail "PyYAML == 6.0.2" "PyYAML" \
-      --replace-fail "qbittorrent-api == 2025.7.0" "qbittorrent-api" \
-      --replace-fail "ruamel.yaml == 0.18.15" "ruamel.yaml" \
-      --replace-fail "typer == 0.17.4" "typer"
+      --replace-fail "beautifulsoup4 == 4.14.3" "beautifulsoup4" \
+      --replace-fail "colorlog == 6.10.1" "colorlog" \
+      --replace-fail "PyYAML == 6.0.3" "PyYAML" \
+      --replace-fail "qbittorrent-api == 2025.11.1" "qbittorrent-api" \
+      --replace-fail "ruamel.yaml == 0.19.1" "ruamel.yaml" \
+      --replace-fail "typer == 0.21.1" "typer"
   '';
 
   build-system = with python3Packages; [
